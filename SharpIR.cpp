@@ -52,7 +52,8 @@ SharpIR::SharpIR(int irPin, int sensorModel) {
     // Define pin as Input
     pinMode (_irPin, INPUT);
     
-    #ifdef ARDUINO
+    // analogReference for ESP requires extra includes and amounts to a NOOP
+    #if defined(ARDUINO) && !defined(ESP8266)
       analogReference(DEFAULT);
     #endif
 }
@@ -113,7 +114,3 @@ int SharpIR::distance() {
 
     return distanceCM;
 }
-
-
-
-
